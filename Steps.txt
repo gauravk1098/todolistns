@@ -1,0 +1,6 @@
+Steps for To-Do Using Express Node and Mongo
+1.Create a folder named as todo
+2.Open this folder in vscode
+3.type npm init in the terminal to get the package.json file
+4. use index.js/app.js as default file
+5.
