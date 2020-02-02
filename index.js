@@ -2,8 +2,27 @@ var express= require("express");
 var app= express();
 const port=process.env.PORT || 3000;
 var bodyParser = require("body-parser");
+/*
+const dotenv= require("dotenv");
+dotenv.config();
+const mongoose = require("mongoose");
+mongoose.set("useFindAndModify", false);
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
+    console.log("Connected to db!");
+    app.listen(3000, () => console.log("Server Up and running"));
+});
+var db
+const MongoClient = require('mongodb').MongoClient
+MongoClient.connect('mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/test?retryWrites=true&w=majority', (err, client) => {
+  if (err) return console.log(err)
+  db = client.db('todo') // whatever your database name is
+  app.listen(6000, () => {
+    console.log('listening on 6000')
+  })
+})
+*/
 var mongoose = require("mongoose");
-var url ="mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/test?retryWrites=true&w=majority";
+var url ="mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/test";
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
 var db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"));
@@ -11,18 +30,6 @@ db.once("open", function(callback) {
   console.log("connection succeeded");
 }); 
 
-/*
-const dotenv= require("dotenv");
-dotenv.config();
-const mongoose = require("mongoose");
-
-mongoose.set("useFindAndModify", false);
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
-    console.log("Connected to db!");
-    app.listen(3000, () => console.log("Server Up and running"));
-});
-
-*/
 const TodoTask = require("./models/TodoTask");
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: true }));
