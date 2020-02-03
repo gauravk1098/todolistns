@@ -1,46 +1,21 @@
-var express= require("express");
-var app= express();
-const port=process.env.PORT || 3000;
-var bodyParser = require("body-parser");
-/*
-const dotenv= require("dotenv");
-dotenv.config();
+const express= require("express");
+const bodyParser = require("body-parser");
+
+//Connection Part
 const mongoose = require("mongoose");
-mongoose.set("useFindAndModify", false);
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
-    console.log("Connected to db!");
-    app.listen(3000, () => console.log("Server Up and running"));
-});
-var db
-const MongoClient = require('mongodb').MongoClient
-MongoClient.connect('mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/test?retryWrites=true&w=majority', (err, client) => {
-  if (err) return console.log(err)
-  db = client.db('todo') // whatever your database name is
-  app.listen(6000, () => {
-    console.log('listening on 6000')
-  })
-})
-*/
-var mongoose = require("mongoose");
-var url ="mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/test";
 
+var url ="";
+mongoose.connect("mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/test",{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false});
 /*
-mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
-var db = mongoose.connection;
-db.on("error", console.log.bind(console, "connection error"));
-db.once("open", function(callback) {
-  console.log("connection succeeded");
-});
-*/
-
-mongoose.connect(url,{useNewUrlParser:true }, (err) => {
+(err) => {
     if(!err) { console.log('Connection Successful')}
     else { console.log('Error in DB connection:' + err)}
 });
-
+*/
+const app=express();
 const TodoTask = require("./models/TodoTask");
 app.use("/static", express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 // GET METHOD
@@ -86,6 +61,7 @@ app.route("/remove/:id").get((req, res) => {
     });
 });
 
+var port= process.env.PORT || 3000;
 app.listen(port,()=> { 
     console.log("Server Up & Running: "+ port);
 })
