@@ -23,12 +23,20 @@ MongoClient.connect('mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/tes
 */
 var mongoose = require("mongoose");
 var url ="mongodb+srv://gaurav:gaurav@clusterns-hjydj.mongodb.net/test";
+
+/*
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
 var db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"));
 db.once("open", function(callback) {
   console.log("connection succeeded");
-}); 
+});
+*/
+
+mongoose.connect(url,{useNewUrlParser:true }, (err) => {
+    if(!err) { console.log('Connection Successful')}
+    else { console.log('Error in DB connection:' + err)}
+});
 
 const TodoTask = require("./models/TodoTask");
 app.use("/static", express.static("public"));
